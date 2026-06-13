@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <script>try{document.documentElement.setAttribute("data-theme",localStorage.getItem("iride_theme")||"light")}catch(e){}</script>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>IRIDE — Creative Studio</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -487,26 +487,168 @@
 
   /* contact */
   .contact{
-    text-align:center;padding:12vh 5vw;display:flex;flex-direction:column;
-    align-items:center;justify-content:center;
+    padding:0;background:
+      radial-gradient(circle at 64% 48%,rgba(255,255,255,.48),transparent 0 34%),
+      linear-gradient(145deg,#d8d1c6,#aea397);
+    color:#171412;isolation:isolate;
   }
-  .contact .pre{font-family:'Space Mono',monospace;font-size:11px;letter-spacing:.3em;text-transform:uppercase;color:var(--muted);margin-bottom:24px;}
-  .contact a.big{
-    display:inline-block;font-weight:300;font-size:clamp(2.4rem,9vw,8rem);line-height:1;
-    letter-spacing:-.02em;color:var(--ink);text-decoration:none;position:relative;
+  .contact-copy{
+    position:absolute;z-index:8;left:5vw;top:8vh;width:min(390px,32vw);
   }
-  .contact a.big .it{font-style:italic;}
-  .contact a.big::after{content:"";position:absolute;left:0;bottom:6px;width:0;height:2px;background:var(--ink);transition:width .5s var(--ease);}
-  .contact a.big:hover::after{width:100%;}
+  .contact .pre{
+    font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.3em;
+    text-transform:uppercase;color:rgba(23,20,18,.58);margin-bottom:14px;
+  }
+  .contact-copy h2{
+    font-weight:300;font-size:clamp(2.7rem,5.4vw,6.2rem);line-height:.82;
+    letter-spacing:-.045em;
+  }
+  .contact-copy h2 .it{font-style:italic;}
+  .contact-copy>p:last-child{margin-top:20px;max-width:320px;font-size:1.05rem;line-height:1.4;color:rgba(23,20,18,.68);}
+  .contact-scene{
+    position:absolute;inset:0;overflow:hidden;
+    background-image:
+      linear-gradient(rgba(40,35,30,.035) 1px,transparent 1px),
+      linear-gradient(90deg,rgba(40,35,30,.035) 1px,transparent 1px);
+    background-size:6vw 6vw;
+  }
+  .laptop-workspace{
+    position:absolute;z-index:6;left:63%;top:50%;width:clamp(500px,53vw,830px);
+    height:min(78vh,720px);transform:translate(-50%,-50%);
+    perspective:1450px;perspective-origin:50% 42%;
+  }
+  .laptop-machine{
+    position:absolute;left:3%;right:3%;top:7%;bottom:1%;
+    transform-style:preserve-3d;transform:none;
+  }
+  .laptop-lid-3d{
+    position:absolute;z-index:4;left:8%;right:8%;top:3%;height:51%;
+    transform-style:preserve-3d;transform-origin:50% 100%;
+    transform:rotateX(-180deg);
+    transition:transform 1.25s cubic-bezier(.2,.72,.18,1);
+    will-change:transform;
+  }
+  .contact-scene.is-open .laptop-lid-3d{transform:rotateX(0deg);}
+  .lid-face{
+    position:absolute;inset:0;border-radius:18px 18px 8px 8px;
+    backface-visibility:hidden;-webkit-backface-visibility:hidden;
+    overflow:hidden;
+  }
+  .lid-outer{
+    z-index:2;border:0;cursor:pointer;color:#202124;
+    background:
+      radial-gradient(circle at 32% 22%,rgba(255,255,255,.42),transparent 0 25%),
+      linear-gradient(145deg,#c6c7c9,#85868a 58%,#545559);
+    box-shadow:0 24px 45px rgba(38,26,18,.35),inset 0 1px rgba(255,255,255,.65);
+    display:grid;place-content:center;text-align:center;
+    transition:filter .3s ease;
+    transform:rotateX(180deg);
+  }
+  .lid-outer:hover{filter:brightness(1.06);}
+  .lid-outer span{
+    font-family:'Space Mono',monospace;font-size:clamp(16px,2vw,27px);
+    letter-spacing:.28em;text-transform:uppercase;
+  }
+  .lid-outer small{
+    margin-top:10px;font-family:'Space Mono',monospace;font-size:8px;
+    letter-spacing:.18em;text-transform:uppercase;opacity:.55;
+  }
+  .lid-inner{
+    padding:11px;background:linear-gradient(145deg,#303135,#111215 72%);
+    box-shadow:inset 0 1px rgba(255,255,255,.15);
+  }
+  .laptop-camera{
+    position:absolute;z-index:3;top:5px;left:50%;width:4px;height:4px;
+    border-radius:50%;background:#050506;box-shadow:0 0 0 1px rgba(255,255,255,.08);
+  }
+  .laptop-screen{
+    height:100%;border-radius:9px;overflow:hidden;background:#f4f2ed;color:#171412;
+    box-shadow:inset 0 0 28px rgba(25,22,18,.12);
+  }
+  .screen-form{
+    height:100%;display:grid;grid-template-columns:.78fr 1.22fr;
+    font-family:'Space Mono',monospace;
+  }
+  .form-side{
+    padding:clamp(20px,3vw,44px);background:#171717;color:#f4f2ed;
+    display:flex;flex-direction:column;justify-content:space-between;
+  }
+  .form-side small{font-size:8px;letter-spacing:.24em;text-transform:uppercase;color:rgba(255,255,255,.45);}
+  .form-side h3{
+    font-family:'Cormorant Garamond',serif;font-weight:300;
+    font-size:clamp(1.7rem,3vw,3.4rem);line-height:.86;letter-spacing:-.035em;
+  }
+  .form-side h3 span{font-style:italic;}
+  .form-side a{width:max-content;color:rgba(255,255,255,.65);font-size:8px;letter-spacing:.08em;text-decoration:none;}
+  .contact-form{
+    padding:clamp(18px,2.8vw,40px);display:flex;flex-direction:column;justify-content:center;gap:13px;
+  }
+  .contact-field label{
+    display:block;margin-bottom:5px;font-size:7px;letter-spacing:.18em;text-transform:uppercase;color:#777066;
+  }
+  .contact-field input,.contact-field textarea{
+    width:100%;border:0;border-bottom:1px solid #c9c2b7;background:transparent;
+    padding:6px 0;color:#171412;font-family:'Cormorant Garamond',serif;
+    font-size:clamp(.92rem,1.3vw,1.15rem);outline:none;border-radius:0;
+  }
+  .contact-field textarea{height:62px;resize:none;line-height:1.2;}
+  .contact-field input:focus,.contact-field textarea:focus{border-color:#171412;}
+  .contact-submit{
+    align-self:flex-start;margin-top:3px;border:1px solid #171412;background:#171412;color:#f4f2ed;
+    padding:9px 14px;font-family:'Space Mono',monospace;font-size:7px;letter-spacing:.17em;
+    text-transform:uppercase;cursor:pointer;transition:background .3s,color .3s;
+  }
+  .contact-submit:hover{background:transparent;color:#171412;}
+  .form-status{min-height:12px;font-size:7px;letter-spacing:.08em;color:#5a6d55;}
+  .laptop-deck{
+    position:absolute;z-index:2;left:8%;right:8%;top:54%;height:43%;
+    padding:16px 9% 18px;border-radius:8px 8px 24px 24px;
+    background:linear-gradient(170deg,#b9babc,#747578 68%,#4a4b4e);
+    clip-path:polygon(0 0,100% 0,100% 94%,98% 100%,2% 100%,0 94%);
+    box-shadow:0 20px 30px rgba(28,20,14,.3),inset 0 1px rgba(255,255,255,.38);
+    transform:translateZ(0);transform-style:preserve-3d;
+    opacity:0;visibility:hidden;
+    transition:opacity .24s ease .28s,visibility 0s linear .52s;
+  }
+  .contact-scene.is-open .laptop-deck{
+    opacity:1;visibility:visible;
+    transition:opacity .3s ease .28s,visibility 0s;
+  }
+  .laptop-deck::before{
+    content:"";position:absolute;left:8%;right:8%;top:-5px;height:8px;border-radius:8px;
+    background:linear-gradient(180deg,#343538,#151618);
+    box-shadow:0 2px 5px rgba(0,0,0,.35);
+  }
+  .visual-keyboard{display:flex;flex-direction:column;gap:5px;}
+  .key-row{display:flex;justify-content:center;gap:5px;}
+  .visual-key{
+    min-width:28px;height:25px;padding:0 6px;border-radius:4px;
+    display:grid;place-items:center;background:#222326;color:#bfc1c4;
+    box-shadow:0 3px 0 #111214,0 4px 5px rgba(0,0,0,.28);
+    font-family:'Space Mono',monospace;font-size:8px;text-transform:uppercase;
+    transition:transform .055s ease,box-shadow .055s ease,background .12s,color .12s;
+  }
+  .visual-key.wide{min-width:49px;}
+  .visual-key.space{width:42%;}
+  .visual-key.is-pressed{
+    transform:translateY(3px);box-shadow:0 0 0 #111214;
+    background:#e0b86a;color:#171412;
+  }
+  .trackpad{
+    width:34%;height:38px;margin:12px auto 0;border:1px solid rgba(50,51,54,.34);
+    border-radius:5px;background:rgba(214,215,216,.12);
+  }
 
   footer{
-    position:absolute;left:5vw;right:5vw;bottom:0;
+    position:absolute;z-index:20;left:5vw;right:5vw;bottom:0;
     display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:16px;
     padding:24px 0;border-top:1px solid var(--line);
     font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);
   }
   footer a{color:var(--muted);text-decoration:none;border-bottom:1px solid transparent;}
   footer a:hover{border-color:var(--muted);}
+  .contact footer{color:rgba(23,20,18,.52);border-color:rgba(23,20,18,.16);text-shadow:none;}
+  .contact footer a{color:rgba(23,20,18,.65);}
 
   /* ---------- map modal ---------- */
   #mapModal{
@@ -607,51 +749,176 @@
   .theme-btn:hover{border-color:var(--ink);transform:translateY(-2px);}
 
   @media(max-width:760px){
+    html{-webkit-text-size-adjust:100%;}
+    body{cursor:auto;}
+    a,button,input,textarea,select{-webkit-tap-highlight-color:transparent;}
     nav{display:none;}
-    header{grid-template-columns:1fr;}
-    .brand{justify-self:center;}
-    section{padding-left:5vw;padding-right:5vw;}
+    header{
+      grid-template-columns:1fr;
+      padding:calc(10px + env(safe-area-inset-top)) 5vw 9px;
+    }
+    .brand{justify-self:center;gap:3px;}
+    .brand svg{width:35px;}
+    .brand .word{font-size:15px;letter-spacing:.34em;padding-left:.34em;}
+    .brand .tag{font-size:6px;letter-spacing:.2em;}
+    .cursor{display:none;}
+    .theme-btn{
+      width:40px;height:40px;right:12px;
+      bottom:calc(12px + env(safe-area-inset-bottom));font-size:16px;
+    }
+    section{
+      padding-left:6vw;padding-right:6vw;
+      padding-top:calc(72px + env(safe-area-inset-top));
+      padding-bottom:calc(24px + env(safe-area-inset-bottom));
+    }
+    .hero{
+      justify-content:flex-start;padding:clamp(150px,22vh,205px) 6vw 24px;
+    }
+    .hero-kicker{
+      max-width:100%;margin-bottom:24px;font-size:9px;letter-spacing:.2em;line-height:1.65;
+    }
+    .hero-kicker .coords{
+      display:inline-block;max-width:100%;letter-spacing:.14em;white-space:normal;
+      overflow-wrap:anywhere;
+    }
+    .hero h1.full{
+      width:100%;margin:0;padding:0;white-space:normal;text-align:center;
+      font-size:clamp(3rem,14.5vw,4.8rem);line-height:.88;letter-spacing:-.035em;
+    }
+    .hero h1.full span{overflow:visible;}
+    .hero h1.full span b{font-size:inherit!important;}
+    .hero-foot{
+      display:block;margin-top:36px;max-width:100%;
+    }
+    .hero-foot p{width:100%;max-width:100%;padding-right:2vw;font-size:1rem;line-height:1.38;}
+    .hero-foot .scroll{display:block;margin-top:24px;font-size:8px;letter-spacing:.22em;}
     .service-showcase{min-height:0;}
-    .work-head{padding-top:10vh;}
-    .work-head h2{font-size:clamp(2.4rem,14vw,4.4rem);line-height:.86;}
+    .work-head{padding:calc(72px + env(safe-area-inset-top)) 6vw 0;}
+    .work-head h2{font-size:clamp(2.5rem,12.5vw,4rem);line-height:.86;}
     .work-head .label{display:none;}
-    .work-filters{top:26vh;gap:6px;}
-    .work-filter{font-size:8px;padding:8px 11px;}
+    .work-filters{
+      top:clamp(158px,23vh,205px);left:0;right:0;gap:7px;flex-wrap:nowrap;
+      overflow-x:auto;padding:0 6vw 9px;scrollbar-width:none;overscroll-behavior-x:contain;
+      -webkit-overflow-scrolling:touch;
+    }
+    .work-filters::-webkit-scrollbar{display:none;}
+    .work-filter{
+      flex:0 0 auto;min-height:40px;font-size:8px;padding:8px 12px;scroll-snap-align:start;
+    }
     .project-card{grid-template-columns:1fr;}
-    .project-content{grid-column:1;padding:40vh 5vw 14vh;justify-content:flex-end;}
-    .project-title{font-size:clamp(3rem,17vw,5.8rem);white-space:normal;}
-    .service-showcase .project-title{max-width:78vw;font-size:clamp(2.65rem,13vw,4.8rem);}
-    .service-description{max-width:70vw;font-size:.94rem;line-height:1.32;}
-    .project-media::after{background:linear-gradient(0deg,rgba(4,4,5,.94),rgba(4,4,5,.08) 78%);}
+    .project-content{
+      grid-column:1;padding:44vh 6vw calc(100px + env(safe-area-inset-bottom));
+      justify-content:flex-end;
+    }
+    .project-meta{font-size:8px;letter-spacing:.18em;margin-bottom:10px;}
+    .project-title{font-size:clamp(2.8rem,13vw,4.2rem);white-space:normal;}
+    .service-showcase .project-title{
+      max-width:86vw;font-size:clamp(2.6rem,11.5vw,3.8rem);line-height:.86;
+    }
+    .project-services{margin-top:12px;font-size:8px;line-height:1.45;}
+    .service-description{
+      display:-webkit-box;max-width:86vw;margin-top:10px;overflow:hidden;
+      -webkit-box-orient:vertical;-webkit-line-clamp:4;
+      font-size:.9rem;line-height:1.28;
+    }
+    .project-media::after{
+      background:linear-gradient(0deg,rgba(4,4,5,.96),rgba(4,4,5,.13) 76%);
+    }
     .portfolio-eye-wrap{
-      width:clamp(180px,51vw,280px);right:-5vw;top:41%;transform:translateY(-50%);
+      width:clamp(180px,52vw,235px);right:-7vw;top:38%;transform:translateY(-50%);
       opacity:.88;
     }
     .portfolio-eye-wrap.is-changing{transform:translateY(-50%) scale(.92) rotate(4deg);}
     .eye-caption{right:15%;font-size:7px;}
-    .project-footer{bottom:3.5vh;justify-content:space-between;}
+    .project-footer{
+      left:6vw;right:6vw;bottom:calc(18px + env(safe-area-inset-bottom));
+      justify-content:space-between;
+    }
     .project-progress{display:none;}
-    .project-nav button{width:43px;height:43px;}
-    .svc-row{grid-template-columns:40px 1fr auto;}
-    .svc{padding-top:clamp(70px,8vh,84px);padding-bottom:14px;}
-    .svc>.label{margin-bottom:8px;}
-    .svc-row{gap:14px;padding:clamp(10px,1.8vh,17px) 0;}
-    .svc-row h3{font-size:clamp(1.25rem,6vw,2rem);}
+    .project-nav button{width:44px;height:44px;}
+    .svc{
+      justify-content:flex-start;padding-top:calc(82px + env(safe-area-inset-top));
+      padding-bottom:calc(18px + env(safe-area-inset-bottom));
+    }
+    .svc>.label{margin-bottom:10px;font-size:9px;letter-spacing:.2em;}
+    #workAccordion{
+      flex:1;min-height:0;overflow-y:auto;overscroll-behavior:contain;
+      scrollbar-width:none;-webkit-overflow-scrolling:touch;
+    }
+    #workAccordion::-webkit-scrollbar{display:none;}
+    .svc-row{grid-template-columns:32px 1fr 28px;gap:10px;min-height:52px;padding:10px 0;}
+    .svc-item:hover .svc-row,.svc-item.open .svc-row{padding-left:8px;}
+    .svc-row .num{font-size:9px;}
+    .svc-row h3{font-size:clamp(1.35rem,6.2vw,2rem);line-height:1;}
     .svc-row .plus{width:22px;height:22px;}
     .svc-panel .body{grid-template-columns:1fr;}
     .svc-panel .body .spacer{display:none;}
+    .svc-panel .body .text p{font-size:.96rem;line-height:1.3;}
+    .svc-panel .body .tags{gap:6px;}
+    .svc-panel .body .tags span{font-size:8px;padding:4px 7px;}
+    .work-link{font-size:8px;}
     .map-box iframe{height:320px;}
-    .admin-wrap{grid-template-columns:1fr;gap:48px;}
-    body{cursor:auto;}
-    .cursor{display:none;}
-    footer{font-size:8px;letter-spacing:.1em;justify-content:center;padding:14px 0;text-align:center;}
+    .map-head{align-items:flex-start;padding:18px;}
+    .map-head .t{font-size:1.25rem;}
+    .map-head .t small{max-width:210px;font-size:8px;}
+    .map-head button{padding:8px 10px;font-size:9px;}
+    .map-foot{padding:13px 18px;font-size:8px;}
+    .admin-bar{padding:15px 5vw;}
+    .admin-bar h2{font-size:1.35rem;}
+    .admin-bar .close{padding:8px 10px;font-size:9px;}
+    .admin-wrap{grid-template-columns:1fr;gap:42px;padding-top:30px;}
+    .admin-wrap>div>div[style*="grid-template-columns"]{grid-template-columns:1fr!important;gap:0!important;}
+    .item{align-items:flex-start;flex-wrap:wrap;}
+    .item .acts{width:100%;justify-content:flex-end;flex-wrap:wrap;}
+    .contact-copy{
+      left:6vw;top:calc(68px + env(safe-area-inset-top));width:88vw;
+    }
+    .contact .pre{font-size:8px;letter-spacing:.2em;margin-bottom:8px;}
+    .contact-copy h2{font-size:clamp(2.45rem,11.5vw,3.8rem);line-height:.88;}
+    .contact-copy>p:last-child{display:none;}
+    .laptop-workspace{left:50%;top:55%;width:94vw;height:68vh;}
+    .laptop-machine{left:0;right:0;top:4%;bottom:0;}
+    .laptop-lid-3d{left:4%;right:4%;top:4%;height:53%;}
+    .lid-face{border-radius:13px 13px 6px 6px;}
+    .lid-inner{padding:7px;}
+    .screen-form{grid-template-columns:1fr;}
+    .form-side{display:none;}
+    .contact-form{padding:12px 16px;gap:6px;}
+    .contact-field label{margin-bottom:2px;font-size:6.5px;}
+    .contact-field input,.contact-field textarea{padding:3px 0;font-size:16px;}
+    .contact-field textarea{height:36px;}
+    .contact-submit{padding:8px 11px;font-size:7px;}
+    .form-status{min-height:9px;font-size:6px;}
+    .laptop-deck{
+      left:4%;right:4%;top:57%;height:39%;padding:11px 4% 12px;
+    }
+    .visual-key{min-width:19px;height:20px;padding:0 3px;font-size:6px;}
+    .visual-key.wide{min-width:34px;}
+    .key-row{gap:3px;}
+    .visual-keyboard{gap:3px;}
+    .trackpad{height:24px;margin-top:7px;}
+    footer{
+      left:6vw;right:6vw;font-size:7px;letter-spacing:.08em;justify-content:flex-start;
+      padding:10px 48px 10px 0;text-align:left;
+    }
+    footer span:first-child,
     footer span:nth-child(2){display:none;}
-    .ideas-copy{padding:0 7vw;}
-    .ideas-phrase{font-size:clamp(3.2rem,18vw,6rem);line-height:.82;gap:.08em .2em;}
-    .ideas-orbit{width:92vw;}
-    .chaos-letter{font-size:9px;}
+    .ideas-copy{padding:0 6vw;}
+    .ideas-kicker{margin-bottom:24px;font-size:8px;letter-spacing:.2em;line-height:1.5;}
+    .ideas-phrase{
+      max-width:92vw;margin:0 auto;font-size:clamp(2.9rem,15.5vw,4.5rem);
+      line-height:.82;gap:.06em .16em;
+    }
+    .ideas-orbit{width:88vw;}
+    .chaos-letter{font-size:8px;}
+    #studio{justify-content:center;padding-top:90px;padding-bottom:50px;}
+    #studio .label{margin-bottom:28px;font-size:9px;letter-spacing:.22em;}
+    .statement{
+      width:82vw;max-width:82vw;overflow-wrap:break-word;
+      font-size:clamp(1.75rem,7.5vw,2.4rem);line-height:1.1;
+    }
   }
-  @media(max-height:620px){
+  @media(max-height:620px) and (min-width:761px){
     .svc{padding-top:58px;padding-bottom:8px;}
     .svc>.label{margin-bottom:5px;}
     .svc-row{padding:8px 0;}
@@ -664,6 +931,72 @@
     .portfolio-eye-wrap{width:min(40vw,340px);}
     .ideas-kicker{margin-bottom:16px;}
     .ideas-phrase{font-size:clamp(2.8rem,12vw,6rem);}
+    .contact-copy{top:55px;}
+    .contact-copy h2{font-size:2.5rem;}
+    .contact-copy>p:last-child{display:none;}
+    .laptop-workspace{left:64%;top:55%;width:min(58vw,590px);height:80vh;}
+  }
+  @media(max-width:920px) and (max-height:520px){
+    body{cursor:auto;}
+    .cursor{display:none;}
+    nav{display:none;}
+    header{grid-template-columns:1fr;padding:7px 4vw;}
+    .brand{justify-self:center;gap:1px;}
+    .brand svg{width:27px;}
+    .brand .word{font-size:13px;}
+    .brand .tag{display:none;}
+    .theme-btn{width:36px;height:36px;right:10px;bottom:10px;}
+    .hero{justify-content:center;padding:48px 5vw 20px;}
+    .hero-kicker{margin-bottom:10px;font-size:7px;line-height:1.45;}
+    .hero h1.full{
+      width:100%;margin:0;padding:0;white-space:nowrap;text-align:center;font-size:6.4vw;
+    }
+    .hero h1.full span b{font-size:inherit!important;}
+    .hero-foot{margin-top:18px;gap:15px;}
+    .hero-foot p{max-width:54vw;font-size:.86rem;line-height:1.25;}
+    .hero-foot .scroll{font-size:7px;}
+    section{padding:48px 5vw 14px;}
+    .work-head{padding:46px 5vw 0;}
+    .work-head h2{font-size:2.4rem;}
+    .work-head .label{display:none;}
+    .work-filters{
+      top:100px;left:0;right:0;flex-wrap:nowrap;overflow-x:auto;padding:0 5vw 6px;
+    }
+    .work-filter{flex:0 0 auto;padding:6px 10px;font-size:7px;}
+    .project-card{grid-template-columns:1fr;}
+    .project-content{grid-column:1;padding:128px 48vw 30px 5vw;justify-content:flex-end;}
+    .service-showcase .project-title{max-width:43vw;font-size:2.4rem;line-height:.82;}
+    .project-meta{margin-bottom:6px;font-size:7px;}
+    .project-services{margin-top:7px;font-size:7px;}
+    .service-description{display:none;}
+    .portfolio-eye-wrap{width:min(31vw,235px);right:5vw;top:54%;}
+    .project-footer{bottom:12px;}
+    .project-nav button{width:38px;height:38px;}
+    .svc{padding-top:50px;padding-bottom:8px;}
+    .svc>.label{margin-bottom:4px;}
+    .svc-row{padding:6px 0;}
+    .svc-panel .body{padding-bottom:7px;}
+    .ideas-kicker{margin-bottom:10px;}
+    .ideas-phrase{font-size:clamp(2.8rem,10vw,5.2rem);}
+    #studio{padding-top:55px;padding-bottom:20px;}
+    #studio .label{margin-bottom:14px;}
+    .statement{font-size:clamp(1.7rem,5.8vw,3rem);}
+    .contact-copy{left:4vw;top:52px;width:38vw;}
+    .contact .pre{font-size:7px;margin-bottom:5px;}
+    .contact-copy h2{font-size:2.4rem;}
+    .contact-copy>p:last-child{display:none;}
+    .laptop-workspace{left:69%;top:52%;width:58vw;height:88vh;}
+    .screen-form{grid-template-columns:1fr;}
+    .form-side{display:none;}
+    .contact-form{padding:8px 12px;gap:4px;}
+    .contact-field input,.contact-field textarea{padding:2px 0;font-size:14px;}
+    .contact-field textarea{height:28px;}
+    .laptop-deck{padding:8px 5%;}
+    .visual-key{min-width:17px;height:15px;font-size:5px;}
+    .visual-key.wide{min-width:28px;}
+    .visual-keyboard,.key-row{gap:2px;}
+    .trackpad{height:18px;margin-top:4px;}
+    footer{font-size:6px;padding:7px 44px 7px 0;}
   }
   @media(prefers-reduced-motion:reduce){
     html{scroll-behavior:auto;}
@@ -672,6 +1005,7 @@
     .ideas-reveal .chaos-letter{opacity:0;}
     .ideas-reveal .resolved-letter,.ideas-reveal .ideas-kicker{opacity:1;filter:none;transform:none;}
     .ideas-reveal .ideas-orbit{border-color:rgba(255,239,194,.12);transform:translate(-50%,-50%) scale(1);}
+    .laptop-lid-3d{transition:none!important;}
   }
 </style>
 </head>
@@ -751,31 +1085,13 @@
     <span class="coords" id="coordsBtn">Via Cavone, Roccella Ionica · 89047 RC</span>
   </p>
   <h1 class="full">
-    <span><b>Raccontiamo ciò che <span class="it">non</span> si vede.</b></span>
+    <span><b>Un nuovo modo di <span class="it">vedere</span> il mondo.</b></span>
   </h1>
   <div class="hero-foot">
     <p>IRIDE è uno studio creativo che trasforma idee in identità visive, campagne e marchi che restano impressi. Guardiamo, ascoltiamo, immaginiamo.</p>
     <span class="scroll">↓ Scorri per esplorare</span>
   </div>
 </div>
-
-<!-- ============ IDEAS REVEAL ============ -->
-<section id="ideas" class="ideas-reveal" aria-label="Dai luce alle tue idee">
-  <div class="ideas-scene" aria-hidden="true">
-    <div class="chaos-field" id="chaosField"></div>
-    <div class="ideas-orbit"></div>
-  </div>
-  <div class="ideas-copy">
-    <p class="ideas-kicker">Trasformiamo intuizioni in direzioni</p>
-    <h2 class="ideas-phrase" id="ideasPhrase" aria-label="Dai luce alle tue idee"></h2>
-  </div>
-</section>
-
-<!-- ============ WORK ============ -->
-<section id="work" class="svc">
-  <div class="label">Lavori selezionati · 2024—26</div>
-  <div id="workAccordion"><!-- popolato dinamicamente --></div>
-</section>
 
 <!-- ============ SERVICES ============ -->
 <section id="services" class="service-showcase">
@@ -802,6 +1118,24 @@
   </div>
 </section>
 
+<!-- ============ WORK ============ -->
+<section id="work" class="svc">
+  <div class="label">Lavori selezionati · 2024—26</div>
+  <div id="workAccordion"><!-- popolato dinamicamente --></div>
+</section>
+
+<!-- ============ IDEAS REVEAL ============ -->
+<section id="ideas" class="ideas-reveal" aria-label="Dai luce alle tue idee">
+  <div class="ideas-scene" aria-hidden="true">
+    <div class="chaos-field" id="chaosField"></div>
+    <div class="ideas-orbit"></div>
+  </div>
+  <div class="ideas-copy">
+    <p class="ideas-kicker">Trasformiamo intuizioni in direzioni</p>
+    <h2 class="ideas-phrase" id="ideasPhrase" aria-label="Dai luce alle tue idee"></h2>
+  </div>
+</section>
+
 <!-- ============ STUDIO ============ -->
 <section id="studio">
   <div class="label">Lo studio</div>
@@ -812,8 +1146,55 @@
 
 <!-- ============ CONTACT ============ -->
 <section id="contact" class="contact">
-  <p class="pre">Iniziamo qualcosa insieme</p>
-  <a class="big" href="mailto:ciao@iride.studio">ciao@iride<span class="it">.studio</span></a>
+  <div class="contact-copy">
+    <p class="pre">Iniziamo qualcosa insieme</p>
+    <h2>Scrivici la tua <span class="it">idea.</span></h2>
+    <p>Apri il portatile e raccontaci cosa hai in mente.</p>
+  </div>
+  <div class="contact-scene" id="contactScene">
+    <div class="laptop-workspace">
+      <div class="laptop-machine">
+        <div class="laptop-lid-3d">
+          <button class="lid-face lid-outer" id="laptopOpenButton" type="button" aria-expanded="false">
+            <span>Contact us</span>
+            <small>Clicca per aprire</small>
+          </button>
+          <div class="lid-face lid-inner">
+            <span class="laptop-camera"></span>
+            <div class="laptop-screen">
+              <div class="screen-form">
+                <div class="form-side">
+                  <small>IRIDE / Contatti</small>
+                  <h3>Facciamo spazio alle <span>idee.</span></h3>
+                  <a href="mailto:ciao@iride.studio">ciao@iride.studio</a>
+                </div>
+                <form class="contact-form" id="contactForm">
+                  <div class="contact-field">
+                    <label for="contactName">Come ti chiami?</label>
+                    <input id="contactName" name="name" type="text" autocomplete="name" placeholder="Il tuo nome">
+                  </div>
+                  <div class="contact-field">
+                    <label for="contactEmail">La tua email</label>
+                    <input id="contactEmail" name="email" type="email" autocomplete="email" placeholder="nome@email.it">
+                  </div>
+                  <div class="contact-field">
+                    <label for="contactMessage">Raccontaci la tua idea</label>
+                    <textarea id="contactMessage" name="message" placeholder="Un progetto, una sfida, un'intuizione..."></textarea>
+                  </div>
+                  <button class="contact-submit" type="submit">Prepara il messaggio →</button>
+                  <p class="form-status" id="contactStatus" aria-live="polite"></p>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="laptop-deck">
+          <div class="visual-keyboard" id="visualKeyboard" aria-hidden="true"></div>
+          <div class="trackpad"></div>
+        </div>
+      </div>
+    </div>
+  </div>
   <footer>
     <span>IRIDE — Studio Creativo</span>
     <span>Roccella Ionica · Sud Italia</span>
@@ -1012,6 +1393,10 @@ function fitTitle(){
   if(!fullTitle)return;
   const b=fullTitle.querySelector('b');
   if(!b)return;
+  if(window.matchMedia('(max-width:760px)').matches){
+    b.style.fontSize='';
+    return;
+  }
   const target=window.innerWidth*0.96;   // span ~full width with tiny breathing room
   // reset to a base size, measure, then scale
   let size=7; // vw baseline
@@ -1301,7 +1686,7 @@ function movePortfolioPupil(){
 }
 movePortfolioPupil();
 document.addEventListener('keydown',e=>{
-  if(/input|textarea|select/i.test(e.target.tagName))return;
+  if(/input|textarea|select|button/i.test(e.target.tagName)||e.target.isContentEditable)return;
   const box=grid.getBoundingClientRect();
   if(box.top>innerHeight*.55||box.bottom<innerHeight*.45)return;
   if(e.key==='ArrowRight'||e.key==='ArrowDown'){e.preventDefault();changeProject(1);}
@@ -1380,12 +1765,76 @@ if(window.matchMedia('(prefers-reduced-motion: reduce)').matches){
   ideasObserver.observe(ideasSection);
 }
 
+/* ---------- contact desk interaction ---------- */
+const contactScene=document.getElementById('contactScene');
+const contactForm=document.getElementById('contactForm');
+const contactStatus=document.getElementById('contactStatus');
+const laptopOpenButton=document.getElementById('laptopOpenButton');
+const visualKeyboard=document.getElementById('visualKeyboard');
+const keyboardRows=[
+  [
+    ['Escape','Esc','wide'],['Digit1','1'],['Digit2','2'],['Digit3','3'],['Digit4','4'],
+    ['Digit5','5'],['Digit6','6'],['Digit7','7'],['Digit8','8'],['Digit9','9'],['Digit0','0'],
+    ['Backspace','⌫','wide']
+  ],
+  [
+    ['Tab','Tab','wide'],['KeyQ','Q'],['KeyW','W'],['KeyE','E'],['KeyR','R'],['KeyT','T'],
+    ['KeyY','Y'],['KeyU','U'],['KeyI','I'],['KeyO','O'],['KeyP','P']
+  ],
+  [
+    ['CapsLock','Caps','wide'],['KeyA','A'],['KeyS','S'],['KeyD','D'],['KeyF','F'],['KeyG','G'],
+    ['KeyH','H'],['KeyJ','J'],['KeyK','K'],['KeyL','L'],['Enter','Invio','wide']
+  ],
+  [
+    ['ShiftLeft','Shift','wide'],['KeyZ','Z'],['KeyX','X'],['KeyC','C'],['KeyV','V'],
+    ['KeyB','B'],['KeyN','N'],['KeyM','M'],['Comma',','],['Period','.']
+  ],
+  [['Space','Spazio','space']]
+];
+visualKeyboard.innerHTML=keyboardRows.map(row=>`
+  <div class="key-row">${row.map(([code,label,size=''])=>
+    `<span class="visual-key ${size}" data-code="${code}">${label}</span>`).join('')}</div>`).join('');
+
+function setVisualKey(code,pressed){
+  const key=visualKeyboard.querySelector(`[data-code="${code}"]`);
+  if(!key)return;
+  key.classList.toggle('is-pressed',pressed);
+  if(pressed)setTimeout(()=>key.classList.remove('is-pressed'),150);
+}
+function inputDataToCode(e){
+  if(e.inputType==='deleteContentBackward')return 'Backspace';
+  const char=e.data?.slice(-1);
+  if(!char)return '';
+  if(/[a-z]/i.test(char))return `Key${char.toUpperCase()}`;
+  if(/[0-9]/.test(char))return `Digit${char}`;
+  return {' ':'Space',',':'Comma','.':'Period','\n':'Enter'}[char]||'';
+}
+laptopOpenButton.addEventListener('click',()=>{
+  contactScene.classList.add('is-open');
+  laptopOpenButton.setAttribute('aria-expanded','true');
+  setTimeout(()=>document.getElementById('contactName').focus(),1250);
+});
+bindCursor(laptopOpenButton);
+contactForm.querySelectorAll('input,textarea').forEach(field=>{
+  field.addEventListener('keydown',e=>setVisualKey(e.code,true));
+  field.addEventListener('keyup',e=>setVisualKey(e.code,false));
+  field.addEventListener('input',e=>{
+    const code=inputDataToCode(e);
+    if(code)setVisualKey(code,true);
+  });
+});
+contactForm.addEventListener('submit',e=>{
+  e.preventDefault();
+  setVisualKey('Enter',true);
+  contactStatus.textContent='Bozza pronta. Ti risponderemo da ciao@iride.studio';
+});
+
 /* ---------- exact full-page navigation ---------- */
 const fullPagePanels=[
   document.getElementById('top'),
-  document.getElementById('ideas'),
-  document.getElementById('work'),
   document.getElementById('services'),
+  document.getElementById('work'),
+  document.getElementById('ideas'),
   document.getElementById('studio'),
   document.getElementById('contact')
 ].filter(Boolean);
@@ -1464,6 +1913,15 @@ window.addEventListener('wheel',e=>{
 let pageTouchX=0,pageTouchY=0,pageTouchDeltaY=0,pageTouchIsVertical=false;
 window.addEventListener('touchstart',e=>{
   if(overlayIsOpen()||e.touches.length!==1)return;
+  const internalScroller=e.target.closest&&e.target.closest('#workAccordion');
+  if(internalScroller&&internalScroller.scrollHeight>internalScroller.clientHeight){
+    pageTouchX=pageTouchY=0;
+    return;
+  }
+  if(e.target.closest&&e.target.closest('input,textarea,button,a,form')){
+    pageTouchX=pageTouchY=0;
+    return;
+  }
   pageTouchX=e.touches[0].clientX;
   pageTouchY=e.touches[0].clientY;
   pageTouchDeltaY=0;
@@ -1499,14 +1957,20 @@ window.addEventListener('touchcancel',()=>{
 syncViewportHeight();
 const viewportSource=window.visualViewport||window;
 viewportSource.addEventListener('resize',()=>{
+  if(document.activeElement?.matches('input,textarea,select'))return;
   clearTimeout(viewportResizeTimer);
   viewportResizeTimer=setTimeout(()=>syncViewportHeight(true),180);
+});
+document.addEventListener('focusout',e=>{
+  if(!e.target.matches('input,textarea,select'))return;
+  clearTimeout(viewportResizeTimer);
+  viewportResizeTimer=setTimeout(()=>syncViewportHeight(true),420);
 });
 window.addEventListener('orientationchange',()=>{
   setTimeout(()=>syncViewportHeight(true),320);
 });
 document.addEventListener('keydown',e=>{
-  if(overlayIsOpen()||/input|textarea|select/i.test(e.target.tagName))return;
+  if(overlayIsOpen()||/input|textarea|select|button/i.test(e.target.tagName)||e.target.isContentEditable)return;
   if(showcaseIsCurrent()&&['ArrowLeft','ArrowRight','ArrowUp','ArrowDown'].includes(e.key))return;
   if(['PageDown','ArrowDown'].includes(e.key)||(e.key===' '&&!e.shiftKey)){
     e.preventDefault();stepPage(1);
